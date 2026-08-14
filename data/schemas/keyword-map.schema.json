@@ -1,0 +1,39 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "keyword-map.schema.json",
+  "title": "Keyword Map",
+  "type": "object",
+  "required": ["schema_version", "market", "language", "clusters"],
+  "properties": {
+    "schema_version": {"type": "string"},
+    "market": {"type": "string"},
+    "language": {"type": "string"},
+    "updated_at": {"type": ["string", "null"], "format": "date-time"},
+    "clusters": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["cluster_id", "primary_keyword", "search_intent", "page_type", "decision", "decision_reason"],
+        "properties": {
+          "cluster_id": {"type": "string", "minLength": 1},
+          "primary_keyword": {"type": "string", "minLength": 1},
+          "secondary_keywords": {"type": "array", "items": {"type": "string"}, "uniqueItems": true},
+          "country": {"type": "string"},
+          "language": {"type": "string"},
+          "search_intent": {"enum": ["informational", "commercial", "transactional", "navigational", "mixed"]},
+          "funnel": {"enum": ["TOFU", "MOFU", "BOFU", null]},
+          "page_type": {"type": "string"},
+          "suggested_slug": {"type": ["string", "null"]},
+          "target_url": {"type": ["string", "null"]},
+          "decision": {"enum": ["create", "merge", "hold", "reject"]},
+          "decision_reason": {"type": "string", "minLength": 1},
+          "priority_score": {"type": ["number", "null"], "minimum": 0, "maximum": 100},
+          "confidence": {"enum": ["high", "medium", "low", "unknown"]},
+          "evidence": {"type": "array", "items": {"type": "object"}}
+        },
+        "additionalProperties": true
+      }
+    }
+  },
+  "additionalProperties": false
+}
