@@ -1,0 +1,34 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "product-candidates.schema.json",
+  "title": "Product Candidates",
+  "type": "object",
+  "required": ["schema_version", "market", "candidates"],
+  "properties": {
+    "schema_version": {"type": "string"},
+    "market": {"type": "string"},
+    "updated_at": {"type": ["string", "null"], "format": "date-time"},
+    "candidates": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["candidate_id", "canonical_name", "category", "decision", "decision_reason"],
+        "properties": {
+          "candidate_id": {"type": "string", "minLength": 1},
+          "canonical_name": {"type": "string", "minLength": 1},
+          "brand": {"type": ["string", "null"]},
+          "model": {"type": ["string", "null"]},
+          "category": {"type": "string"},
+          "roles": {"type": "array", "items": {"type": "string"}, "uniqueItems": true},
+          "portfolio_value": {"type": ["number", "null"], "minimum": 0, "maximum": 100},
+          "data_confidence": {"enum": ["high", "medium", "low", "unknown"]},
+          "decision": {"enum": ["approve", "hold", "reject", "merge"]},
+          "decision_reason": {"type": "string", "minLength": 1},
+          "evidence": {"type": "array", "items": {"type": "object"}}
+        },
+        "additionalProperties": true
+      }
+    }
+  },
+  "additionalProperties": false
+}
