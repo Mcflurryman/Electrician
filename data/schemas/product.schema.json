@@ -1,0 +1,40 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "product.schema.json",
+  "title": "Canonical Electrical Product",
+  "type": "object",
+  "required": ["schema_version", "product_id", "identity", "specs", "evidence", "reviewed_at"],
+  "properties": {
+    "schema_version": {"type": "string"},
+    "product_id": {"type": "string", "minLength": 1},
+    "identity": {
+      "type": "object",
+      "required": ["brand", "model", "canonical_name"],
+      "properties": {
+        "brand": {"type": "string"},
+        "model": {"type": "string"},
+        "canonical_name": {"type": "string"},
+        "aliases": {"type": "array", "items": {"type": "string"}},
+        "market": {"type": "string"}
+      },
+      "additionalProperties": true
+    },
+    "specs": {
+      "type": "object",
+      "properties": {
+        "capacity_wh": {"type": ["number", "null"], "minimum": 0},
+        "continuous_output_w": {"type": ["number", "null"], "minimum": 0},
+        "surge_output_w": {"type": ["number", "null"], "minimum": 0},
+        "battery_chemistry": {"type": ["string", "null"]},
+        "weight_kg": {"type": ["number", "null"], "minimum": 0}
+      },
+      "additionalProperties": true
+    },
+    "derived_metrics": {"type": "object"},
+    "scores": {"type": "array", "items": {"type": "object"}},
+    "evidence": {"type": "array", "items": {"type": "object"}},
+    "conflicts": {"type": "array", "items": {"type": "object"}},
+    "reviewed_at": {"type": "string", "format": "date-time"}
+  },
+  "additionalProperties": true
+}
